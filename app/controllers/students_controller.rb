@@ -7,7 +7,11 @@ class StudentsController < ApplicationController
 
   def show
     the_id = params.fetch("path_id")
-    @student = Student.where({:id => the_id }).at(0)
+    
+    matching_students = Student.where({ :id => the_id })
+    @student = matching_students.at(0)
+    
+    @enrollments = Enrollment.where({ :student_id => the_id })
 
     render({ :template => "students/show" })
   end
